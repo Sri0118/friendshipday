@@ -1,120 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Happy Friendship Day</title>
-
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffd89b);
-}
-
-.container{
-    width:700px;
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(12px);
-    border-radius:20px;
-    padding:40px;
-    text-align:center;
-    color:white;
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
-}
-
-h1{
-    font-size:48px;
-    margin-bottom:20px;
-}
-
-h2{
-    font-size:32px;
-    margin-bottom:25px;
-    color:#fff7a8;
-}
-
-p{
-    font-size:22px;
-    line-height:1.8;
-}
-
-.footer{
-    margin-top:30px;
-    font-size:28px;
-    color:#fff176;
-    font-weight:bold;
-}
-
-button{
-    margin-top:30px;
-    padding:15px 35px;
-    border:none;
-    border-radius:40px;
-    font-size:20px;
-    background:#ff4081;
-    color:white;
-    cursor:pointer;
-    transition:.3s;
-}
-
-button:hover{
-    background:#e91e63;
-    transform:scale(1.1);
-}
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{overflow:hidden;height:100vh;display:flex;justify-content:center;align-items:center;background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ffd89b,#a18cd1);background-size:400% 400%;animation:bg 12s ease infinite}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+#particles span{position:absolute;bottom:-50px;font-size:24px;animation:up linear infinite}
+@keyframes up{to{transform:translateY(-120vh) rotate(360deg);opacity:0}}
+.card{position:relative;z-index:2;width:min(92%,760px);padding:35px;border-radius:25px;background:rgba(255,255,255,.18);backdrop-filter:blur(14px);color:#fff;text-align:center;box-shadow:0 12px 35px rgba(0,0,0,.3);animation:fade 1s}
+@keyframes fade{from{opacity:0;transform:translateY(40px)}}
+h1{font-size:46px;animation:glow 2s infinite alternate}
+@keyframes glow{to{text-shadow:0 0 20px #fff,0 0 40px #ff4d88}}
+h2{color:#fff59d;margin:15px 0}
+#msg{font-size:21px;line-height:1.8;min-height:240px;white-space:pre-wrap}
+button{margin:10px;padding:14px 28px;border:none;border-radius:40px;background:#ff4081;color:#fff;font-size:18px;cursor:pointer}
+#modal{display:none;position:fixed;inset:0;background:#0008;justify-content:center;align-items:center;z-index:5}
+#box{background:#fff;color:#444;padding:25px;border-radius:20px;max-width:400px;text-align:center}
+canvas{position:fixed;inset:0;pointer-events:none}
+</style></head><body>
+<div id="particles"></div>
+<canvas id="cv"></canvas>
+<div class="card">
 <h1>🌸 Happy Friendship Day 🌸</h1>
-
 <h2>Dear Vanisri Shivanolla ❤️</h2>
-
-<p>
-Some people walk into our lives and make everything brighter.
-<br><br>
+<p id="msg"></p>
+<h2>💖 Forever Friends • Forever Memories 💖</h2>
+<button onclick="celebrate()">Click Here ❤️</button>
+</div>
+<div id="modal"><div id="box"><h2>💖 Happy Friendship Day 💖</h2><p>Dear Vanisri ❤️<br><br>Thank you for being such an amazing friend. May your life always be filled with happiness, success, peace and smiles! 🌸</p><br><button onclick="modal.style.display='none'">Close</button></div></div>
+<script>
+const text=`Some people walk into our lives and make everything brighter.
 
 Thank you for being my biggest support, my best listener, and the reason behind so many beautiful memories.
-<br><br>
 
 Your kindness, trust, and care mean more to me than words can ever express.
-I feel truly lucky to have a wonderful friend like you.
-<br><br>
 
-No matter where life takes us, I hope our friendship stays as beautiful, strong, and everlasting as it is today.
-<br><br>
+No matter where life takes us, I hope our friendship stays beautiful, strong, and everlasting.
 
-May your life always be filled with happiness, success, peace, and endless smiles.
-</p>
-
-<div class="footer">
-💖 Happy Friendship Day 💖
-<br>
-🌸 Forever Friends • Forever Memories 🌸
-</div>
-
-<button onclick="wish()">Click Here ❤️</button>
-
-</div>
-
-<script>
-function wish(){
-    alert("💖 Happy Friendship Day Vanisri! Thank you for being such an amazing friend. 😊");
-}
-</script>
-
-</body>
-</html>
+May your life always be filled with happiness, success, peace, and endless smiles.`;
+let i=0;function type(){if(i<text.length){msg.textContent+=text[i++];setTimeout(type,28)}}type();
+const p=document.getElementById('particles');
+for(let i=0;i<40;i++){let s=document.createElement('span');s.textContent=['💖','🌸','✨','💕','🌺'][i%5];s.style.left=Math.random()*100+'%';s.style.animationDuration=(6+Math.random()*8)+'s';s.style.animationDelay=Math.random()*6+'s';p.appendChild(s)}
+const c=cv,ctx=c.getContext('2d');function rs(){c.width=innerWidth;c.height=innerHeight}onresize=rs;rs();
+let arr=[];
+function celebrate(){modal.style.display='flex';for(let i=0;i<180;i++)arr.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*8,vy:(Math.random()-.5)*8,g:0.08,l:100,c:`hsl(${Math.random()*360},100%,60%)`})}
+(function anim(){ctx.clearRect(0,0,c.width,c.height);arr.forEach(f=>{ctx.fillStyle=f.c;ctx.fillRect(f.x,f.y,4,4);f.x+=f.vx;f.y+=f.vy;f.vy+=f.g;f.l--});arr=arr.filter(f=>f.l>0);requestAnimationFrame(anim)})();
+</script></body></html>
