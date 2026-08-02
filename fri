@@ -21,23 +21,39 @@ canvas{position:fixed;inset:0;pointer-events:none}
 <div id="particles"></div>
 <canvas id="cv"></canvas>
 <div class="card">
-<h1>🌸 Happy Friendship Day 🌸</h1>
+<h1>💖 Happy Friendship Day 💖</h1>
 <h2>Dear Vanisri Shivanolla ❤️</h2>
 <p id="msg"></p>
-<h2>💖 Forever Friends • Forever Memories 💖</h2>
-<button onclick="celebrate()">Click Here ❤️</button>
+<h2> 🎁 Surprise </h2>
+<button onclick="showSurprise()">🎁 Surprise Click Here ❤️</button>
 </div>
-<div id="modal"><div id="box"><h2>💖 Happy Friendship Day 💖</h2><p>Dear Vanisri ❤️<br><br>Thank you for being such an amazing friend. May your life always be filled with happiness, success, peace and smiles! 🌸</p><br><button onclick="modal.style.display='none'">Close</button></div></div>
+<div id="surpriseModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);justify-content:center;align-items:center;z-index:10;">
+    <div style="background:#fff;padding:20px;border-radius:20px;text-align:center;max-width:500px;">
+        <h2 style="color:#ff4081;">🎉 Happy Friendship Day 🎉</h2>
+
+        <!-- Replace friendship-day.jpg with your image -->
+        <img src="friend.jpg"
+             alt="Friendship Day"
+             style="width:100%;max-width:400px;border-radius:15px;margin:15px 0;box-shadow:0 5px 15px rgba(0,0,0,.3);">
+
+        <p style="color:#444;font-size:18px;">
+            🌸 Wishing you endless happiness, laughter, and beautiful memories.
+            Thank you for being such a wonderful friend! 💖
+        </p>
+
+        <br>
+
+        <button onclick="document.getElementById('surpriseModal').style.display='none'"
+                style="padding:10px 25px;border:none;border-radius:30px;background:#ff4081;color:#fff;cursor:pointer;">
+            Close ❤️
+        </button>
+    </div>
+</div>
 <script>
-const text=`Some people walk into our lives and make everything brighter.
+const text=`Some people walk into our lives and make everything brighter, and you are one of those special people. Thank you for always being there for me, listening to me, supporting me, and filling my life with beautiful memories. Your kindness, trust, and care mean more than words can express.
 
-Thank you for being my biggest support, my best listener, and the reason behind so many beautiful memories.
-
-Your kindness, trust, and care mean more to me than words can ever express.
-
-No matter where life takes us, I hope our friendship stays beautiful, strong, and everlasting.
-
-May your life always be filled with happiness, success, peace, and endless smiles.`;
+Wishing you endless happiness, success, good health, and countless reasons to smile. Happy Friendship Day, my dear friend! 💖
+`;
 let i=0;function type(){if(i<text.length){msg.textContent+=text[i++];setTimeout(type,28)}}type();
 const p=document.getElementById('particles');
 for(let i=0;i<40;i++){let s=document.createElement('span');s.textContent=['💖','🌸','✨','💕','🌺'][i%5];s.style.left=Math.random()*100+'%';s.style.animationDuration=(6+Math.random()*8)+'s';s.style.animationDelay=Math.random()*6+'s';p.appendChild(s)}
