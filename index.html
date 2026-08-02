@@ -50,15 +50,85 @@ canvas{position:fixed;inset:0;pointer-events:none}
     </div>
 </div>
 <script>
-const text=`Some people walk into our lives and make everything brighter, and you are one of those special people. Thank you for always being there for me, listening to me, supporting me, and filling my life with beautiful memories. Your kindness, trust, and care mean more than words can express.
+const text = `Some people walk into our lives and make everything brighter, and you are one of those special people. Thank you for always being there for me, listening to me, supporting me, and filling my life with beautiful memories. Your kindness, trust, and care mean more than words can express.
 
-Wishing you endless happiness, success, good health, and countless reasons to smile. Happy Friendship Day, my dear friend! 💖
-`;
-let i=0;function type(){if(i<text.length){msg.textContent+=text[i++];setTimeout(type,28)}}type();
-const p=document.getElementById('particles');
-for(let i=0;i<40;i++){let s=document.createElement('span');s.textContent=['💖','🌸','✨','💕','🌺'][i%5];s.style.left=Math.random()*100+'%';s.style.animationDuration=(6+Math.random()*8)+'s';s.style.animationDelay=Math.random()*6+'s';p.appendChild(s)}
-const c=cv,ctx=c.getContext('2d');function rs(){c.width=innerWidth;c.height=innerHeight}onresize=rs;rs();
-let arr=[];
-function celebrate(){modal.style.display='flex';for(let i=0;i<180;i++)arr.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*8,vy:(Math.random()-.5)*8,g:0.08,l:100,c:`hsl(${Math.random()*360},100%,60%)`})}
-(function anim(){ctx.clearRect(0,0,c.width,c.height);arr.forEach(f=>{ctx.fillStyle=f.c;ctx.fillRect(f.x,f.y,4,4);f.x+=f.vx;f.y+=f.vy;f.vy+=f.g;f.l--});arr=arr.filter(f=>f.l>0);requestAnimationFrame(anim)})();
+Wishing you endless happiness, success, good health, and countless reasons to smile. Happy Friendship Day, my dear friend! 💖`;
+
+const msg = document.getElementById("msg");
+let i = 0;
+
+function type() {
+    if (i < text.length) {
+        msg.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 30);
+    }
+}
+type();
+
+// Floating emojis
+const particles = document.getElementById("particles");
+const emojis = ["💖","🌸","✨","💕","🌺"];
+
+for(let i=0;i<40;i++){
+    const span=document.createElement("span");
+    span.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+    span.style.left=Math.random()*100+"%";
+    span.style.animationDuration=(6+Math.random()*6)+"s";
+    span.style.animationDelay=Math.random()*5+"s";
+    particles.appendChild(span);
+}
+
+// Canvas
+const canvas=document.getElementById("cv");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let confetti=[];
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    confetti.forEach((p,index)=>{
+        ctx.fillStyle=p.color;
+        ctx.fillRect(p.x,p.y,5,5);
+
+        p.x+=p.vx;
+        p.y+=p.vy;
+        p.vy+=0.08;
+        p.life--;
+
+        if(p.life<=0){
+            confetti.splice(index,1);
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+animate();
+
+// Popup Function
+function showSurprise(){
+
+    document.getElementById("surpriseModal").style.display="flex";
+
+    confetti=[];
+
+    for(let i=0;i<200;i++){
+        confetti.push({
+            x:window.innerWidth/2,
+            y:window.innerHeight/2,
+            vx:(Math.random()-0.5)*10,
+            vy:(Math.random()-0.5)*10,
+            life:120,
+            color:`hsl(${Math.random()*360},100%,50%)`
+        });
+    }
+}
 </script></body></html>
